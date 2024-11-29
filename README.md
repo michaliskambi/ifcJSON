@@ -2,20 +2,22 @@
 
 ## About this fork (michaliskambi/ifcJSON)
 
-This is a fork of https://github.com/buildingsmart-community/ifcJSON to make the Python conversion (_IFCJSON->IFC (STEP)_) script work:
+This is a fork of https://github.com/buildingsmart-community/ifcJSON to make the Python conversion scripts (_IFC JSON <->IFC (STEP)_) scripts work:
 
 - on latest Debian/Ubuntu systems,
 - with latest IfcOpenShell,
-- IFC JSON files produced by latest [BonsaiBIM](https://bonsaibim.org/) and [Castle Game Engine](https://castle-engine.io/ifc) (with `type="IFC.JSON"` inside).
+- read IFC JSON files produced by latest [BonsaiBIM](https://bonsaibim.org/) and [Castle Game Engine](https://castle-engine.io/ifc) (with `type="IFC.JSON"` inside).
 
 Summary of usage:
 
 ```
 # install dependencies
-sudo apt install python-is-python3
+sudo apt install python3 python3-pip
+  # optional if you want to just write "python" instead of "python3" below:
+  # sudo apt install python-is-python3
 pip install ifcopenshell
 
-# If above answers "error: externally-managed-environment",
+# If above answers "error: externally-managed-environment":
 # - Read what it says.
 # - Consider using a virtual environment, as advised there.
 # - If you want a quick way, on your own head be it:
@@ -24,11 +26,19 @@ pip install ifcopenshell --break-system-packages
 # clone this repo
 git clone https://github.com/michaliskambi/ifcJSON
 
-# use the script, replace filenames with your own
+# use the scripts; replace filenames below with your own:
+
 cd ifcJSON/file_converters
-python json2ifc.py -i ~/Desktop/input.ifcjson -o ~/Desktop/output.ifc
+
+python3 json2ifc.py -h
+python3 json2ifc.py -i input.ifcjson -o output.ifc
 # proper output should look like this:
 # > Reading ifcJson file: ....
+# > Conversion took  ....  seconds
+
+python3 ifc2json.py -h
+python3 ifc2json.py -i input.ifc -o output.ifcjson
+# proper output should look like this:
 # > Conversion took  ....  seconds
 ```
 
