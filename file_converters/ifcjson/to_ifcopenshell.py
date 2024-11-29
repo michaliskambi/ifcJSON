@@ -28,6 +28,8 @@ class JSON2IFC(IFCJSON):
         self.timeStamp = None
         self.application = None
 
+        print('Reading ifcJson file: %s' % inFilePath)
+
         with open(inFilePath) as ifcJsonFile:
             ifcJson = json.load(ifcJsonFile)
 
@@ -35,19 +37,19 @@ class JSON2IFC(IFCJSON):
             if type(ifcJson) is dict:
                 self.parseHeader(ifcJson)
                 if 'type' in ifcJson:
-                    if ifcJson['type'] == 'ifcJSON':
-                        
+                    if ifcJson['type'] == 'ifcJSON' or ifcJson['type'] == 'IFC.JSON':
+
                         self.timestamp = None
-                        
+
                         if 'data' in ifcJson:
                             self.collect_objects(ifcJson['data'])
                         else:
-                            print('Not a valid ifcJson file')
+                            print('Not a valid ifcJson file - missing data')
                     else:
-                        print('Not a valid ifcJson file')
+                        print('Not a valid ifcJson file - type invalid')
 
                 else:
-                    print('Not a valid ifcJson file')
+                    print('Not a valid ifcJson file - missing type')
 
             # When ifcJson data is just a list of objects
             elif type(ifcJson) is dict:
